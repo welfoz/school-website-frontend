@@ -7,6 +7,10 @@ import {FormsModule} from "@angular/forms";
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { EventsComponent } from './events/events.component';
+import { AppRoutingModule } from './app-routing.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { StudentsComponent } from './students/students.component';
 
 @NgModule({
   declarations: [
@@ -14,11 +18,15 @@ import { EventsComponent } from './events/events.component';
     HereoComponent,
     HeroDetailComponent,
     MessagesComponent,
-    EventsComponent
+    EventsComponent,
+    DashboardComponent,
+    StudentsComponent
   ],
     imports: [
         BrowserModule,
-        FormsModule
+        FormsModule,
+        AppRoutingModule,
+        HttpClientModule
     ],
   providers: [],
   bootstrap: [AppComponent]

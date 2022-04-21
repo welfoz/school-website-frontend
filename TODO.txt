@@ -1,0 +1,222 @@
+5 http methods from examples :
+get all => done
+get by id => done
+put =>
+post => done
+delete all => done
+
+3 others :
+patch => il est bon ?
+delete id => done
+put by id
+put all
+
+TO DO :
+put all
+put by id = update ou creation
+patch = partial update
+
+{
+        "id": 103,
+        "firstname": "1.0",
+        "lastname": "test",
+        "email": "dropshippeur@gmail.com",
+        "telephone": "0606060606",
+        "account": {
+            "id": 104,
+            "accountName": "1.0"
+        },
+        "address": {
+            "id": 101,
+            "city": "1.0",
+            "street": "2 test de Rambervillers4.0PUT TEST TEST",
+            "number": "666",
+            "postalCode": "te"
+        },
+        "teamList": [
+            {
+                "id": 102,
+                "teamStudent": [],
+                "teamName": "1.0"
+            }
+        ]
+    },
+    {
+        "id": 107,
+        "firstname": "2.0",
+        "lastname": "test",
+        "email": "dropshippeur@gmail.com",
+        "telephone": "0606060606",
+        "account": {
+            "id": 108,
+            "accountName": "2.0"
+        },
+        "address": {
+            "id": 105,
+            "city": "2.0",
+            "street": "2 test de Rambervillers4.0PUT TEST TEST",
+            "number": "666",
+            "postalCode": "te"
+        },
+        "teamList": [
+            {
+                "id": 106,
+                "teamStudent": [],
+                "teamName": "2.0"
+            }
+        ]
+    },
+    {
+        "id": 109,
+        "firstname": "2.1",
+        "lastname": "test",
+        "email": "dropshippeur@gmail.com",
+        "telephone": "0606060606",
+        "account": {
+            "id": 110,
+            "accountName": "2.1"
+        },
+        "address": {
+            "id": 105,
+            "city": "2.0",
+            "street": "2 test de Rambervillers4.0PUT TEST TEST",
+            "number": "666",
+            "postalCode": "te"
+        },
+        "teamList": [
+            {
+                "id": 106,
+                "teamStudent": [],
+                "teamName": "2.0"
+            }
+        ]
+    },
+    {
+        "id": 111,
+        "firstname": "1.1",
+        "lastname": "test",
+        "email": "dropshippeur@gmail.com",
+        "telephone": "0606060606",
+        "account": {
+            "id": 112,
+            "accountName": "1.1"
+        },
+        "address": {
+            "id": 101,
+            "city": "1.0",
+            "street": "2 test de Rambervillers4.0PUT TEST TEST",
+            "number": "666",
+            "postalCode": "te"
+        },
+        "teamList": [
+            {
+                "id": 102,
+                "teamStudent": [],
+                "teamName": "1.0"
+            }
+        ]
+    },
+    {
+        "id": 113,
+        "firstname": "3.0",
+        "lastname": "test",
+        "email": "dropshippeur@gmail.com",
+        "telephone": "0606060606",
+        "account": {
+            "id": 114,
+            "accountName": "1.1"
+        },
+        "address": {
+            "id": 101,
+            "city": "1.0",
+            "street": "2 test de Rambervillers4.0PUT TEST TEST",
+            "number": "666",
+            "postalCode": "te"
+        },
+        "teamList": [
+            {
+                "id": 106,
+                "teamStudent": [],
+                "teamName": "2.0"
+            }
+        ]
+    },
+    {
+        "id": 119,
+        "firstname": "KIKKKOOOOOOOOOOOOOOO",
+        "lastname": "test_ezihfziefheeeeeeee",
+        "email": "persistons@gmail.com",
+        "telephone": "06060606061300",
+        "account": {
+            "id": 146,
+            "accountName": "146666"
+        },
+        "address": {
+            "id": 150,
+            "city": "NEWWW ADRESSS",
+            "street": null,
+            "number": null,
+            "postalCode": null
+        },
+        "teamList": [
+            {
+                "id": 151,
+                "teamStudent": [],
+                "teamName": "148888888"
+            }
+        ]
+    },
+    {
+        "id": 155,
+        "firstname": "sansteam",
+        "lastname": "test_ezihfziefheeeeeeee",
+        "email": "persistons@gmail.com",
+        "telephone": "06060606061300",
+        "account": {
+            "id": 156,
+            "accountName": "146666"
+        },
+        "address": {
+            "id": 154,
+            "city": "NEWWW ADRESSS",
+            "street": null,
+            "number": null,
+            "postalCode": null
+        },
+        "teamList": []
+    },
+    {
+        "id": 159,
+        "firstname": "3TEAM",
+        "lastname": "test_ezihfziefheeeeeeee",
+        "email": "persistons@gmail.com",
+        "telephone": "06060606061300",
+        "account": {
+            "id": 160,
+            "accountName": "146666"
+        },
+        "address": {
+            "id": 157,
+            "city": "NEWWW ADRESSS",
+            "street": null,
+            "number": null,
+            "postalCode": null
+        },
+        "teamList": [
+            {
+                "id": 106,
+                "teamStudent": [],
+                "teamName": "2.0"
+            },
+            {
+                "id": 102,
+                "teamStudent": [],
+                "teamName": "1.0"
+            },
+            {
+                "id": 158,
+                "teamStudent": [],
+                "teamName": "Newteam"
+            }
+        ]
+    }
