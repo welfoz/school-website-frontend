@@ -1,20 +1,16 @@
 5 http methods from examples :
 get all => done
 get by id => done
-put =>
+put by id => done
 post => done
 delete all => done
+delete by id => done
 
 3 others :
-patch => il est bon ?
-delete id => done
-put by id
-put all
+patch phone
+patch email
 
 TO DO :
-put all
-put by id = update ou creation
-patch = partial update
 
 {
         "id": 103,

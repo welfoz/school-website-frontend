@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentsComponent } from './students/students.component';
+import { ModifyStudentComponent } from './modify-student/modify-student.component';
+import { ModifyStudentPhoneComponent } from './modify-student-phone/modify-student-phone.component';
+import { ModifystudentemailComponent } from './modifystudentemail/modifystudentemail.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { StudentsComponent } from './students/students.component';
     MessagesComponent,
     EventsComponent,
     DashboardComponent,
-    StudentsComponent
+    StudentsComponent,
+    ModifyStudentComponent,
+    ModifyStudentPhoneComponent,
+    ModifystudentemailComponent
   ],
     imports: [
         BrowserModule,
