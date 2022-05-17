@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { StudentService } from '../student.service';
-import { Student } from '../students';
+import {Student, subjectIdSet} from '../students';
+
 
 @Component({
   selector: 'app-students',
@@ -12,7 +13,10 @@ export class StudentsComponent implements OnInit {
   selectedStudent? : Student;
   selectedStudentPhone? : Student;
   selectedStudentEmail? : Student;
+  addResponse? : Student;
   modifyDisplay = 'none';
+  // subjectIdSet? : Set<subjectIdSet>;
+
   constructor(private studentService: StudentService) { }
 
   ngOnInit(): void {
@@ -29,12 +33,30 @@ export class StudentsComponent implements OnInit {
     this.studentService.getStudent(numberId)
       .subscribe(student => this.student = student);
   }
-  add(firstname : string, lastname : string, email: string, telephone: string): void {
+  add(firstname : string, lastname : string, email: string): void {
     firstname = firstname.trim();
     lastname = lastname.trim();
     email = email.trim();
-    telephone = telephone.trim();
-    this.studentService.addStudent({firstname, lastname, email, telephone } as Student)
+    this.studentService.addStudent([{firstname, lastname, email}] as Student[])
+      .subscribe( {
+        next: (student: Student[]) => { this.addResponse = student[0]; },
+        error: () => {},
+        complete: () => {
+          if (this.studentService.studentList != undefined) {
+            this.studentService.totalItems.next(this.studentService.studentList.length);
+            console.log(this.studentService.studentList.length);
+            console.log(this.addResponse);
+          }
+        }
+
+      })
+  }
+
+  // [7, 8, 9]
+  register(subjectSet : Set<subjectIdSet>): void {
+
+
+    this.studentService.registerPatch({subjectSet} as Student)
       .subscribe( {
         next: (student: Student) => { this.studentService.studentList?.push(student); },
         error: () => {},
@@ -47,25 +69,24 @@ export class StudentsComponent implements OnInit {
 
       })
   }
-
-  delete(student: Student): void {
-    this.studentService.studentList = this.studentService.studentList?.filter(_ => _ !== student);
-    this.studentService.deleteStudent(student).subscribe(() => {
-      if(this.studentService.studentList != undefined) {
-        this.studentService.totalItems.next(this.studentService.studentList.length);
-        console.log(this.studentService.studentList.length);
-      }
-    })
-  }
-  deleteAll(): void {
-    this.studentService.studentList = [];
-    this.studentService.deleteAllStudent().subscribe(() => {
-      if(this.studentService.studentList != undefined) {
-        this.studentService.totalItems.next(this.studentService.studentList.length);
-        console.log(this.studentService.studentList.length);
-      }
-    })
-  }
+  // delete(student: Student): void {
+  //   this.studentService.studentList = this.studentService.studentList?.filter(_ => _ !== student);
+  //   this.studentService.deleteStudent(student).subscribe(() => {
+  //     if(this.studentService.studentList != undefined) {
+  //       this.studentService.totalItems.next(this.studentService.studentList.length);
+  //       console.log(this.studentService.studentList.length);
+  //     }
+  //   })
+  // }
+  // deleteAll(): void {
+  //   this.studentService.studentList = [];
+  //   this.studentService.deleteAllStudent().subscribe(() => {
+  //     if(this.studentService.studentList != undefined) {
+  //       this.studentService.totalItems.next(this.studentService.studentList.length);
+  //       console.log(this.studentService.studentList.length);
+  //     }
+  //   })
+  // }
   modify(student : Student) {
     this.selectedStudent = student;
   }

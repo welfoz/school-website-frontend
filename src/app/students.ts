@@ -3,5 +3,12 @@ export  interface  Student {
   firstname : string;
   email : string;
   lastname : string;
-  telephone : string;
+  subjectSet: Set<subjectIdSet>;
 }
+
+export interface subjectIdSet {
+  id: number;
+}
+
+interface StudentList extends Array<Student>{}
+

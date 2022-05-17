@@ -1,7 +1,29 @@
 <p>students works!</p>
 
+get id => see only that when log in
+
+<label>id :
+  <input type="number" #id />
+</label>
+
+<br>
+<button (click)="getById(id.value)">get by id</button>
+<div *ngIf="student != undefined">{{student.firstname}} {{student.lastname}} {{student.email}} </div>
+<br>
+<br>
+<br>
+patch/register/id
+<br>
+patch/unregister/id
+<br>
+see his subjects
+<br>
+see his marks
+<br>
+<br>
 
 <div>
+  POST
   <label>Student firstname:
     <input #studentFirstName />
   </label>
@@ -14,41 +36,28 @@
     <input #studentEmail />
   </label>
   <br>
-  <label>Student phone:
-    <input #studentTelephone />
-  </label>
-  <br>
-  <button (click)="add(studentFirstName.value, studentLastName.value, studentEmail.value, studentTelephone.value);
-    studentFirstName.value = ''; studentLastName.value = ''; studentEmail.value = ''; studentTelephone.value=''">
+  <button (click)="add(studentFirstName.value, studentLastName.value, studentEmail.value);
+    studentFirstName.value = ''; studentLastName.value = ''; studentEmail.value = ''">
           add
   </button>
+
+    <div *ngIf="addResponse != undefined"> {{addResponse.firstname}} {{addResponse.lastname}} {{addResponse.id}} </div>
+  <br>
 </div>
 
-<ul>
-  <li *ngFor="let student of studentList()">
-    {{student.id}} {{student.firstname}} {{student.email}} {{student.lastname}} {{student.telephone}}
-    <button [class.selected]="student === selectedStudent" type="button" (click)="modify(student)">modify student</button>
-    <button (click)="delete(student)">delete</button>
-    <button [class.selected]="student === selectedStudentPhone" type="button" (click)="modifyPhone(student)">modify Phone</button>
-    <button [class.selected]="student === selectedStudentEmail" type="button" (click)="modifyEmail(student)">modify Email</button>
-   <!-- <button (click)="modifyPhone(student)">modify phone</button>
-    <button (click)="modifyEmail(student)">modify email</button>-->
-    <!--{{student.firstname}}
-    {{student.lastname}}
-    {{student.telephone}}-->
+<!--<ul>-->
+<!--  <li *ngFor="let student of studentList()">-->
+<!--    {{student.id}} {{student.firstname}} {{student.email}} {{student.lastname}} {{student.telephone}}-->
+<!--    <button [class.selected]="student === selectedStudent" type="button" (click)="modify(student)">modify student</button>-->
+<!--    <button [class.selected]="student === selectedStudentPhone" type="button" (click)="modifyPhone(student)">modify Phone</button>-->
+<!--    <button [class.selected]="student === selectedStudentEmail" type="button" (click)="modifyEmail(student)">modify Email</button>-->
+<!--   &lt;!&ndash; <button (click)="modifyPhone(student)">modify phone</button>-->
+<!--    <button (click)="modifyEmail(student)">modify email</button>&ndash;&gt;-->
+<!--    &lt;!&ndash;{{student.firstname}}-->
+<!--    {{student.lastname}}-->
+<!--    {{student.telephone}}&ndash;&gt;-->
 
 
-  </li>
-</ul>
-<app-modify-student [student]="selectedStudent"></app-modify-student>
-<app-modify-student-phone [student]="selectedStudentPhone"></app-modify-student-phone>
-<app-modifystudentemail [student]="selectedStudentEmail"></app-modifystudentemail>
-<button (click)="deleteAll()">delete ALL STUDENTS</button>
-<br>
-<label>id :
-  <input type="number" #id />
-</label>
-<br>
-<button (click)="getById(id.value)">get by id</button>
-<div *ngIf="student != undefined">{{student.firstname}} {{student.lastname}} {{student.email}} {{student.telephone}}</div>
-
+<!--  </li>-->
+<!--</ul>-->
+<!--<br>-->
