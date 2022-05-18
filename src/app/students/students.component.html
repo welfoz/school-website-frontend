@@ -1,7 +1,35 @@
 <p>students works!</p>
 
 get id => see only that when log in
+<!--<form #myForm="ngForm" (ngSubmit)="onSubmitTemplateBased(myForm.value)">-->
+<!--<div *ngFor="let a of subjectRegister(); let i = index">-->
+<!--  <br>-->
+<!--  {{a}}-->
+  <div style="width:50%">
+    <form [formGroup]="dropDownForm" (ngSubmit)="dropDownSubmitted()">
+    <ng-multiselect-dropdown
+      [settings]="dropdownSettings"
+      [data]="subjectRegisterList()"
+    formControlName="mySubjects">
 
+    </ng-multiselect-dropdown>
+      <input formControlName="id" type="number">
+<!--      {{mySubjects}}-->
+      <button type="submit">Send</button></form>
+  </div>
+<!--    <select required [(ngModel)]="selectedValue" name="{{i}}">-->
+<!--      <option value="" selected>Select a subject</option>-->
+<!--      <option *ngFor="let subject of subjectRegisterList()" [ngValue]="subject.id"  name="{{i + subject.id}}" ngModel>-->
+<!--        {{subject.name}}-->
+<!--        {{a}}-->
+<!--      </option>-->
+<!--    </select>-->
+<!--  {{selectedValue| json}}-->
+<!--</div>-->
+<!--</div>-->
+<!--</form>-->
+<!--{{myform.value | json}}-->
+<!--<button (click)="addNumberOfSubject()">Add Subject</button>-->
 <label>id :
   <input type="number" #id />
 </label>
@@ -13,6 +41,12 @@ get id => see only that when log in
 <br>
 <br>
 patch/register/id
+
+- dropdown des noms de matieres dispos
+
+<br>
+- btn submit en passant set ["id": number, ..]
+
 <br>
 patch/unregister/id
 <br>

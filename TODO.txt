@@ -1,7 +1,8 @@
 Interface simple :
+
 /student
-get id => see only that when log in
-patch/register/id
+get id => see only that when log in => done
+patch/register/id => next
 patch/unregister/id
 see his subjects
 see his marks
