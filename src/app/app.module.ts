@@ -12,13 +12,16 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import { NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
+import { TeacherSubjectDetailsComponent } from './teacher-subject-details/teacher-subject-details.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentsComponent,
     TeacherComponent,
-    AdminComponent
+    AdminComponent,
+    TeacherSubjectDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ import { NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
     HttpClientModule,
     NgMultiSelectDropDownModule.forRoot(),
     NoopAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,63 @@
 <p>teacher works!</p>
+<p> Add New Subject</p>
+<div *ngIf="addTeacherResponse != undefined"> {{addTeacherResponse.firstname}} {{addTeacherResponse.lastname}} {{addTeacherResponse.id}}
+<ul *ngFor="let subject of addTeacherResponse.subjects" (click)="subjectDetails(subject)">
+  <li class="ul">
+    {{subject.name}} {{subject.id}} {{subject.description}}
+  </li>
+
+</ul>
+</div>
+<app-teacher-subject-details [subject]="selectedSubject"></app-teacher-subject-details>
+<br>
+
+<div>
+  <label>
+    Name:
+  </label>
+    <input #name />
+  <br>
+  <label>Description:
+    <input #description />
+  </label>
+  <br>
+  <button (click)="add(name.value, description.value);
+    name.value = ''; description.value = '';">
+    add
+  </button>
+
+</div>
+
+<div style="width:50%">
+  REGISTER
+  <form [formGroup]="dropDownForm" (ngSubmit)="dropDownSubmitted()">
+    <ng-multiselect-dropdown
+      [settings]="dropdownSettings"
+      [data]="subjectRegisterList()"
+      formControlName="mySubjects">
+
+    </ng-multiselect-dropdown>
+    <input formControlName="id" type="number">
+    <!--      {{mySubjects}}-->
+    <button type="submit">Send</button></form>
+  <br>
+  <br>
+  UNREGISTER
+  <form [formGroup]="dropDownFormUnregister" (ngSubmit)="dropDownSubmittedUnregister()">
+    <ng-multiselect-dropdown
+      [settings]="dropdownSettings"
+      [data]="subjectUnRegisterList()"
+      formControlName="ToUnRegister">
+
+    </ng-multiselect-dropdown>
+    <input formControlName="id" type="number">
+    <!--      {{mySubjects}}-->
+    <button type="submit">Send</button></form>
+</div>
+
+
+POST MARKS
+<br>
+My Subjects
+
+<div *ngIf="addTeacherResponse != undefined"> {{addTeacherResponse.subjects}} </div>

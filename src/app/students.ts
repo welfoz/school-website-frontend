@@ -8,7 +8,12 @@ export  interface Student {
 
 export interface subjectIdSet {
   id: number;
+  name: string;
 }
 
-interface StudentList extends Array<Student>{}
+export  interface studentDetails {
+  id : number;
+  firstname : string;
+  lastname : string;
+}
 

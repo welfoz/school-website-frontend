@@ -2,9 +2,11 @@ Interface simple :
 
 /student
 get id => see only that when log in => done
-patch/register/id => next
-patch/unregister/id
-see his subjects
+patch/register/id => done
+patch/unregister/id => done, just need to automatically pass the id when the student is logged in
+  - we can also think about a list front end updated with api responses like tour of heroes
+
+see his subjects => done
 see his marks
 
 /teacher

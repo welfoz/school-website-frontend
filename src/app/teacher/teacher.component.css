@@ -1,0 +1,9 @@
+ul {
+  border: 1px solid;
+  max-width: 400px;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 15px;
+  margin-left: 30px;
+  background: blanchedalmond;
+}

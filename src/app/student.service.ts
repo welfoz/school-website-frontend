@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { Student } from './students';
+import {Subject} from "./subject";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,10 @@ export class StudentService {
   getStudent(id: number): Observable<Student> {
     const url = `${this.studentsUrl}/${id}`;
     return this.http.get<Student>(url).pipe(
-      tap(_ => console.log(`fetched student id=${id}`)),
+      tap(response => {
+        console.log(`fetched student id=${id}`);
+        console.log(response);
+      } ),
       catchError(this.handleError<Student>(`getStudent id=${id}`))
     );
   }

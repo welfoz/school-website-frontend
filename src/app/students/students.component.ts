@@ -1,10 +1,9 @@
-import {Component, ElementRef, forwardRef, Inject, OnInit} from '@angular/core';
+import {Component, forwardRef, OnInit} from '@angular/core';
 import { StudentService } from '../student.service';
 import {Student, subjectIdSet} from '../students';
-import {FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {FormBuilder, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {SubjectService} from "../subject.service";
 import { IDropdownSettings, } from 'ng-multiselect-dropdown';
-import {Subject} from "../subject";
 
 
 @Component({
@@ -20,35 +19,26 @@ import {Subject} from "../subject";
   ]
 })
 export class StudentsComponent implements OnInit {
-  // get dropDownForm(): FormGroup {
-  //   return this._dropDownForm;
-  // }
-  //
-  // set dropDownForm(value: FormGroup) {
-  //   this._dropDownForm = value;
-  // }
   student?: Student;
   selectedStudent? : Student;
-  selectedStudentPhone? : Student;
-  selectedStudentEmail? : Student;
-  addResponse? : Student;
+  addResponse?: Student;
 
-  selectedValue: string | undefined;
-  numberOfSubject: Array<number> = [1];
+  // TO DO = change it with the token jwt
+  studentId: number = 1;
 
-  // a: any;
-  modifyDisplay = 'none';
-  subjectIdSet: Set<subjectIdSet> = new Set();
-
-  studentId: number = -1;
+  // form variables
   selectedSubjects = [];
-  // dropDownList:Subject[] = [];
   dropdownSettings:IDropdownSettings={};
   dropDownForm: FormGroup;
+  dropDownFormUnregister: FormGroup;
+  currentSubjectsID: Set<subjectIdSet> = new Set();
 
   constructor(private studentService: StudentService, private subjectService: SubjectService, private fb:FormBuilder) {
     this.dropDownForm = fb.group({
       mySubjects: [this.selectedSubjects],
+    });
+    this.dropDownFormUnregister = fb.group({
+      ToUnRegister: [this.currentSubjectsID],
     });
   }
 
@@ -56,8 +46,8 @@ export class StudentsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getStudents();
     this.getSubjects();
+    this.getById('1');
     this.dropdownSettings = {
       idField: "id",
       textField: "name",
@@ -66,6 +56,10 @@ export class StudentsComponent implements OnInit {
     this.dropDownForm = this.fb.group({
       mySubjects: [this.selectedSubjects],
       id: this.studentId
+    });
+    this.dropDownFormUnregister = this.fb.group({
+      ToUnRegister: [this.currentSubjectsID],
+      id: "1"
     });
   }
 
@@ -84,21 +78,23 @@ export class StudentsComponent implements OnInit {
   getById(id : string): void {
     const numberId = parseInt(id);
     this.studentService.getStudent(numberId)
-      .subscribe(student => this.student = student);
+      .subscribe(student => {
+        this.student = student;
+        this.currentSubjectsID = student.subjectSet;
+      });
   }
+
   add(firstname : string, lastname : string, email: string): void {
     firstname = firstname.trim();
     lastname = lastname.trim();
     email = email.trim();
     this.studentService.addStudent([{firstname, lastname, email}] as Student[])
       .subscribe( {
-        next: (student: Student[]) => { this.addResponse = student[0]; },
         error: () => {},
         complete: () => {
           if (this.studentService.studentList != undefined) {
             this.studentService.totalItems.next(this.studentService.studentList.length);
             console.log(this.studentService.studentList.length);
-            console.log(this.addResponse);
           }
         }
 
@@ -107,18 +103,32 @@ export class StudentsComponent implements OnInit {
 
   // [7, 8, 9]
   register(subjectSet : Set<subjectIdSet>, id:number): void {
-
-
     this.studentService.registerPatch({subjectSet, id} as Student)
       .subscribe( {
-        next: (student: Student) => { this.studentService.studentList?.push(student); },
-        error: () => {},
+        // next: (student: Student) => { this.studentService.studentList?.push(student); },
+        // error: () => {},
         complete: () => {
-          if (this.studentService.studentList != undefined) {
-            this.studentService.totalItems.next(this.studentService.studentList.length);
-            console.log(this.studentService.studentList.length);
+          // if (this.studentService.studentList != undefined) {
+          //   this.studentService.totalItems.next(this.studentService.studentList.length);
+          //   console.log(this.studentService.studentList.length);
             console.log("student registered");
-          }
+          // }
+        }
+
+      })
+  }
+
+  unregister(subjectSet : Set<subjectIdSet>, id:number): void {
+    this.studentService.unregisterPatch({subjectSet, id} as Student)
+      .subscribe( {
+        // next: (student: Student) => { this.studentService.studentList?.push(student); },
+        // error: () => {},
+        complete: () => {
+          // if (this.studentService.studentList != undefined) {
+          //   this.studentService.totalItems.next(this.studentService.studentList.length);
+          //   console.log(this.studentService.studentList.length);
+          console.log("student unregistered");
+          // }
         }
 
       })
@@ -141,40 +151,18 @@ export class StudentsComponent implements OnInit {
   //     }
   //   })
   // }
-  subjectToRegister: any;
   modify(student : Student) {
     this.selectedStudent = student;
   }
   studentList() {
     return this.studentService.studentList;
   }
-  modifyPhone(student : Student) {
-    this.selectedStudentPhone = student;
-  }
-  modifyEmail(student : Student) {
-    this.selectedStudentEmail = student;
-  }
 
-
-
-
-  subjectRegister() {
-
-    return this.numberOfSubject
-  }
-
-  addNumberOfSubject() {
-    this.numberOfSubject.push(this.numberOfSubject.length + 1);
-  }
 
   subjectRegisterList() {
     return this.subjectService.subjectList;
   }
 
-
-  onSubmitTemplateBased(value: any): void {
-    console.log(value);
-  }
 
   dropDownSubmitted(): void {
     console.log(this.dropDownForm);
@@ -182,11 +170,22 @@ export class StudentsComponent implements OnInit {
     // [{"id": number}, "id"
     this.dropDownForm.get('mySubjects')?.value.forEach((el: any) => {
       console.log(el.id);
-      this.subjectIdSet?.add(el.id);
+      // this.subjectIdSet?.add(el.id);
     });
-    console.log(Array.from(this.subjectIdSet?.values()));
+    // console.log(Array.from(this.subjectIdSet?.values()));
 
     this.register(this.dropDownForm.get('mySubjects')?.value, this.dropDownForm.get('id')?.value);
 
   }
+
+  dropDownSubmittedUnregister() {
+
+   console.log(this.dropDownFormUnregister.get('ToUnRegister')?.value);
+    this.unregister(this.dropDownFormUnregister.get('ToUnRegister')?.value, this.dropDownForm.get('id')?.value);
+  }
+
+  subjectUnRegisterList() {
+    return Array.from(this.currentSubjectsID.values());
+  }
+
 }

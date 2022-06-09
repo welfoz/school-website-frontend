@@ -1,0 +1,100 @@
+<p>teacher-subject-details works!</p>
+<div *ngIf="subject != undefined">
+  <div *ngIf="subjectsGrades != undefined">
+    {{subjectsGrades.name}} {{subjectsGrades.id}}
+    <br>
+  </div>
+  {{subject.name}} {{subject.description}}
+<ul *ngFor="let student of subject.studentSet">
+  <li>
+    {{student.id}} {{student.firstname}} {{student.lastname}}
+  </li>
+</ul>
+  <ul *ngFor="let grade of subject.gradeList">
+    <li>
+      {{grade.mark}} {{grade.id}} {{grade.student.id}}
+    </li>
+  </ul>
+  <button mat-raised-button (click)="addColumn()"> Add column </button>
+  <button mat-raised-button (click)="removeColumn()"> Remove column </button>
+
+<!--  <table mat-table [dataSource]="subject.studentSet" class="mat-elevation-z8">-->
+<!--    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">-->
+
+<!--      <th mat-header-cell *matHeaderCellDef> {{column}} </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="grade">-->
+<!--      <th mat-header-cell *matHeaderCellDef> grade </th>-->
+
+<!--      <td mat-cell *matCellDef="let element"> dada </td>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="save">-->
+<!--      <th mat-header-cell *matHeaderCellDef></th>-->
+<!--      <td mat-cell *matCellDef="let element">-->
+<!--        <button mat-raised-button color ="primary" type ="submit">Save</button></td>-->
+<!--    </ng-container>-->
+<!--    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>-->
+<!--    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>-->
+<!--  </table>-->
+  <div *ngIf="subjectsGrades.student">
+    <form [formGroup]="gradesForm" (ngSubmit)="sendGrades()">
+  <table mat-table [dataSource]="subjectsGrades.student" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell *matCellDef="let element"> {{element.student_id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef> lastname </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="column" *ngFor="let column of displayedGradesColumns; index as i">
+
+      <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="element.grades[i] != undefined, else noGrade">{{element.grades[i].mark}}</div>
+        <ng-template #noGrade>
+        No Grade
+      </ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="grade">
+      <th mat-header-cell *matHeaderCellDef> grade </th>
+      <td mat-cell *matCellDef="let element">
+
+        <div [formGroup]="element.gradeForm">
+          <input formControlName="mark" type="number" placeholder="19.5">
+        </div>
+
+      </td>
+
+    </ng-container>
+<!--    &lt;!&ndash; Symbol Column &ndash;&gt;-->
+<!--    <ng-container matColumnDef="symbol">-->
+<!--      <th mat-header-cell *matHeaderCellDef> Symbol </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>-->
+<!--    </ng-container>-->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+      <button type="submit"> Submit </button>
+      <ng-container *ngIf="errorMessage.length != 0">{{errorMessage}}</ng-container>
+    </form>
+</div>
+</div>
