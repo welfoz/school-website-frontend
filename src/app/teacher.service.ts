@@ -22,7 +22,7 @@ export class TeacherService {
     }
 
   }
-  getById(id: number): Observable<Teacher> {
+  getById(id: string): Observable<Teacher> {
     const url = `${this.teachersUrl}/${id}`;
     return this.http.get<Teacher>(url).pipe(
       tap(response => {
@@ -63,6 +63,11 @@ export class TeacherService {
     );
   }
 
+  patchTeacher(teacher: Teacher, id: string) {
+    return this.http.patch<Teacher>(`${this.teachersUrl}/${id}`, teacher, httpOptions).pipe(
+      catchError(this.handleError<any>('addStudent'))
+    );
+  }
 }
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type' : 'application/json'})

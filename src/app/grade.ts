@@ -1,5 +1,5 @@
 import {Student} from "./students";
-import {Subject} from "./subject";
+import {minimalSubject, Subject} from "./subject";
 
 
 export interface Grade {
@@ -15,4 +15,9 @@ export interface GradeForForm {
   student: Student;
   subject: Subject;
   gradeForm: any;
+}
+export interface GradeForStudent {
+  id?: number;
+  mark?: number;
+  subject?: minimalSubject;
 }

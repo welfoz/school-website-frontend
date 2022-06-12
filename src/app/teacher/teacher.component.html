@@ -1,48 +1,127 @@
-<p>teacher works!</p>
-<p> Add New Subject</p>
-<div *ngIf="addTeacherResponse != undefined"> {{addTeacherResponse.firstname}} {{addTeacherResponse.lastname}} {{addTeacherResponse.id}}
-<ul *ngFor="let subject of addTeacherResponse.subjects" (click)="subjectDetails(subject)">
-  <li class="ul">
-    {{subject.name}} {{subject.id}} {{subject.description}}
+
+<div *ngIf="addTeacherResponse != undefined">
+  Welcome {{addTeacherResponse.firstname}} {{addTeacherResponse.lastname}}!
+</div>
+<div style="position: relative; display: flex; margin-top: 50px">
+<div class="card">
+
+  <div class="behind-text">
+    My Information
+  </div>
+  <div class="behind"></div>
+  <div class="abs">
+    <div>
+      <form name="formInfosTeacher" (ngSubmit)="f.form.valid && pathTeacherInfos()" #f="ngForm" novalidate>
+      <label>
+        Firstname:
+      </label>
+
+        <input name="firstname" #firstname="ngModel" [(ngModel)]="formInfosTeacher.firstname"
+               required type="text"/>
+
+        <div *ngIf="f.submitted && firstname.invalid">
+          <div *ngIf="['firstname.errors?.required']" class="form-error">Firstname is required</div>
+        </div>
+      <label>lastname:
+
+        <input name="lastname" #lastname="ngModel" [(ngModel)]="formInfosTeacher.lastname"
+               required type="text"/>
+
+        <div *ngIf="f.submitted && lastname.invalid">
+          <div *ngIf="['lastname.errors?.required']" class="form-error">Lastname is required</div>
+        </div>
+      </label>
+        <button type="submit" >
+        Update
+      </button>
+        <div *ngIf="f.submitted">
+          {{patchInfosResponse}}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="behind-text">
+  Add Subjects
+  </div>
+  <div class="behind"></div>
+  <div class="abs">
+    <form name="formAddSubject" (ngSubmit)="fSubject.form.valid && add()" #fSubject="ngForm" novalidate>
+      <label>
+    Name:
+        <input name="name" #name="ngModel" [(ngModel)]="formAddSubject.name"
+                required type="text"/>
+
+        <div *ngIf="fSubject.submitted && name.invalid">
+          <div *ngIf="['name.errors?.required']" class="form-error">Name is required</div>
+        </div>
+
+      </label>
+  <label>Description:
+    <input name="description" #description="ngModel" [(ngModel)]="formAddSubject.description"
+           type="text"/>
+  </label>
+  <button type="submit">
+    add
+  </button>
+      <div *ngIf="fSubject.submitted">
+        {{addSubjectResponse}}
+      </div>
+    </form>
+  </div>
+  </div>
+
+</div>
+<!--  </div>-->
+
+<div *ngIf="addTeacherResponse != undefined" class="card subjects">
+  My Subjects
+  <div style="    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row; margin-bottom: 30px">
+  <ul *ngFor="let subject of addTeacherResponse.subjects" (click)="subjectDetails(subject)">
+  <li>
+    <button>
+    {{subject.name}}
+    </button>
   </li>
 
 </ul>
-</div>
+  </div>
 <app-teacher-subject-details [subject]="selectedSubject"></app-teacher-subject-details>
 <br>
-
-<div>
-  <label>
-    Name:
-  </label>
-    <input #name />
-  <br>
-  <label>Description:
-    <input #description />
-  </label>
-  <br>
-  <button (click)="add(name.value, description.value);
-    name.value = ''; description.value = '';">
-    add
-  </button>
-
 </div>
 
-<div style="width:50%">
-  REGISTER
-  <form [formGroup]="dropDownForm" (ngSubmit)="dropDownSubmitted()">
+<div style="position: relative; display: flex; height: 200px; max-width: 100%; margin-bottom: 50px">
+  <div style="width: 50%">
+    <div style="width: 70%; margin-left: auto; margin-right: auto;" class="card registration">
+
+      <div class="behind-text">
+      REGISTER
+      </div>
+      <div class="behind"></div>
+      <div class="abs register">
+    <form [formGroup]="dropDownForm" (ngSubmit)="dropDownSubmitted()">
     <ng-multiselect-dropdown
       [settings]="dropdownSettings"
       [data]="subjectRegisterList()"
       formControlName="mySubjects">
 
     </ng-multiselect-dropdown>
-    <input formControlName="id" type="number">
-    <!--      {{mySubjects}}-->
     <button type="submit">Send</button></form>
+      </div>
   <br>
   <br>
-  UNREGISTER
+  </div>
+  </div>
+    <div style="width: 50%">
+    <div style="width: 70%; margin-left: auto; margin-right: auto;" class="card registration">
+      <div class="behind-text">
+      UNREGISTER
+      </div>
+      <div class="behind"></div>
+      <div class="abs register">
   <form [formGroup]="dropDownFormUnregister" (ngSubmit)="dropDownSubmittedUnregister()">
     <ng-multiselect-dropdown
       [settings]="dropdownSettings"
@@ -50,14 +129,8 @@
       formControlName="ToUnRegister">
 
     </ng-multiselect-dropdown>
-    <input formControlName="id" type="number">
-    <!--      {{mySubjects}}-->
     <button type="submit">Send</button></form>
+    </div>
+    </div>
+    </div>
 </div>
-
-
-POST MARKS
-<br>
-My Subjects
-
-<div *ngIf="addTeacherResponse != undefined"> {{addTeacherResponse.subjects}} </div>

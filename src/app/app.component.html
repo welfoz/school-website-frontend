@@ -1,14 +1,45 @@
-<nav>
-  <a routerLink="/student">Student</a>
-  <a routerLink="/teacher">Teacher</a>
-</nav>
-<h1>{{ title }}</h1>
-<!--<app-students></app-students>-->
-<!--<app-teacher></app-teacher>-->
-<!--<app-admin></app-admin>-->
-<!--
-<app-events></app-events>
-<app-hereo></app-hereo>-->
+<!--<nav>-->
+<!--  <a routerLink="/student">Student</a>-->
+<!--  <a routerLink="/teacher">Teacher</a>-->
+<!--</nav>-->
+<!--<div class="page-header">-->
+<!--  <div class="container">-->
+<!--    <h1>Router Sample</h1>-->
+<!--    <div class="navLinks">-->
+<!--      <a [routerLink]="['/home']">Home</a>-->
+<!--      <br>-->
+<!--      <a [routerLink]="['/student']">Students</a>-->
+<!--      <br>-->
+<!--      <a [routerLink]="['/home']" (click)="signOut()">Log out</a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
-<router-outlet></router-outlet>
-<!--<app-messages></app-messages>-->
+<nav class="navbar">
+    <ul routerLinkActive="active">
+      <li *ngIf="authority === 'admin'" class="nav-item">
+        <a class="nav-link" routerLink="admin">Admin Page</a>
+      </li>
+      <li *ngIf="authority === 'student'" class="nav-item" style="left: 200px;">
+        <a class="nav-link" routerLink="student">Student Page</a>
+      </li>
+      <li *ngIf="authority === 'teacher'" class="nav-item">
+        <a class="nav-link" routerLink="teacher">Teacher Page</a>
+      </li>
+
+      <li *ngIf="authority" class="nav-item" (click)="signOut()">
+        <a class="nav-link" routerLink="home" style="right: 200px">Log Out</a></li>
+      <li *ngIf="!authority" class="nav-item" style="right: 200px">
+        <a class="nav-link" routerLink="auth/login">Login</a>
+      </li>
+    </ul>
+
+</nav>
+<div class="basic">
+
+  <div id="content">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+</div>

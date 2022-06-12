@@ -42,3 +42,36 @@ button:disabled {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.basic {
+  padding: 20px;
+}
+
+.navbar{
+  background-color: #FFC099;
+  padding: 10px;
+}
+.navbar ul{
+  overflow: auto;
+}
+.navbar li{
+  float:left;
+  list-style: none;
+  margin: 20px;
+
+}
+.navbar li a{
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  position: absolute;
+  top: 30px;
+}
+.navbar li a:hover{
+  font-weight: bolder;
+}
+
+.form-error {
+  font-size: 11px;
+  color: darkred;
+}

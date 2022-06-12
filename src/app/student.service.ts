@@ -17,7 +17,7 @@ export class StudentService {
     return this.http.get<Student[]>(this.studentsUrl);
   }
 
-  getStudent(id: number): Observable<Student> {
+  getStudent(id: string): Observable<Student> {
     const url = `${this.studentsUrl}/${id}`;
     return this.http.get<Student>(url).pipe(
       tap(response => {
@@ -52,9 +52,9 @@ export class StudentService {
       catchError(this.handleError<any>('updateStudent'))
     );
   }
-  addStudent(student: Student[]): Observable<Student[]> {
+  pathStudent(student: Student, id: string): Observable<Student> {
     // const studentArray = new Array(student);
-    return this.http.post<Student>(this.studentsUrl, student, httpOptions).pipe(
+    return this.http.patch<Student>(`${this.studentsUrl}/${id}`, student, httpOptions).pipe(
       tap((studentAdded: Student)=> console.log(`post ${studentAdded.id}`)),
       catchError(this.handleError<any>('addStudent'))
     );

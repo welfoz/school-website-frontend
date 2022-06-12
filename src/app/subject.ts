@@ -1,5 +1,6 @@
 import {studentDetails} from "./students";
 import {Grade} from "./grade";
+import {minimalTeacher, Teacher} from "./teacher";
 
 
 export interface Subject {
@@ -8,6 +9,7 @@ export interface Subject {
   description: string;
   studentSet: studentDetails[];
   gradeList: Grade[];
+  teacher?: minimalTeacher;
 }
 
 export interface SubjectGrades {
@@ -26,6 +28,10 @@ export interface studentGrades {
 }
 
 export interface minimalGrade {
-  grade_id: number;
-  mark: number;
+  grade_id?: number;
+  mark?: number;
+}
+
+export interface minimalSubject {
+  id: number;
 }

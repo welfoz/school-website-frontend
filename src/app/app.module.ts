@@ -14,14 +14,25 @@ import {MatSelectModule} from "@angular/material/select";
 import { NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
 import { TeacherSubjectDetailsComponent } from './teacher-subject-details/teacher-subject-details.component';
 import {MatTableModule} from "@angular/material/table";
+import {RouterModule, Routes} from "@angular/router";
+import {httpInterceptorProviders} from "./auth/auth-interceptor";
+import {UserComponent} from "./user/user.component";
+import {RoleGuard} from "./guards/role.guard";
+import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register/register.component";
+import { ErrorComponent } from './error/error.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    RegisterComponent,
     StudentsComponent,
     TeacherComponent,
     AdminComponent,
-    TeacherSubjectDetailsComponent
+    TeacherSubjectDetailsComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +44,9 @@ import {MatTableModule} from "@angular/material/table";
     NgMultiSelectDropDownModule.forRoot(),
     NoopAnimationsModule,
     ReactiveFormsModule,
-    MatTableModule
+    MatTableModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,3 +12,9 @@ export interface subjectIdTeacher {
   id: number;
   name: string;
 }
+
+export interface minimalTeacher {
+  id : number;
+  firstname : string;
+  lastname: string;
+}

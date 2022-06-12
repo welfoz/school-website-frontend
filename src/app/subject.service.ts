@@ -8,6 +8,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 })
 export class SubjectService {
   public subjectList: Subject[] = [];
+  public subjectsAvailable: Subject[] = [];
   private subjectUrl = "http://localhost:8083/subject";
 
   constructor(private http: HttpClient) {
