@@ -62,7 +62,8 @@ export class StudentsComponent implements OnInit {
       textField: "name",
       disabledField: "true",
       allowSearchFilter: true,
-      enableCheckAll: false
+      enableCheckAll: false,
+      maxHeight: 80
     };
     this.dropDownForm = this.fb.group({
       mySubjects: [this.selectedSubjects],

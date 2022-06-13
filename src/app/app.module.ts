@@ -21,6 +21,9 @@ import {RoleGuard} from "./guards/role.guard";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import { ErrorComponent } from './error/error.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatCardModule} from "@angular/material/card";
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
@@ -45,6 +48,9 @@ import { ErrorComponent } from './error/error.component';
     NoopAnimationsModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatInputModule,
+    MatCardModule,
+    MatRadioModule,
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

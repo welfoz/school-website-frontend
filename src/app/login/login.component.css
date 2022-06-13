@@ -1,21 +1,5 @@
-button {
-  background-color: #fbeee0;
-  border: 2px solid #422800;
-  border-radius: 30px;
-  box-shadow: #422800 4px 4px 0 0;
-  color: #422800;
-  cursor: pointer;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 0 13px;
-  line-height: 35px;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  margin-top: 15px;
+.full-width {
+  /*min-width: 150px;*/
+  /*max-width: 500px;*/
+  width: 100%;
 }

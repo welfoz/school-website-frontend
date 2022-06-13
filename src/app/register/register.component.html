@@ -3,11 +3,23 @@
 </div>
 
 <ng-template #signupForm >
-  <div style="float: left; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: #eeeeee; padding: 30px; border-radius: 25px;">
-  <div class="row col-sm-6" style="max-width:350px;">
+  <div style="float: left; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 30px; border-radius: 25px;">
+    <mat-card>
     <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <div class="form-group">
-        <label for="role" id="role">Role</label>
+<!--        <label id="role">Choose your role<br></label>-->
+<!--        <mat-radio-group-->
+<!--          aria-labelledby="role"-->
+<!--          class="form-control"-->
+<!--          [(ngModel)]="form.role" #role="ngModel" required>-->
+<!--          <mat-radio-button value="student" #role="ngModel" [(ngModel)]="form.role">-->
+<!--            Student-->
+<!--          </mat-radio-button>-->
+<!--          <mat-radio-button value="teacher" [(ngModel)]="form.role" #role="ngModel">-->
+<!--            Teacher-->
+<!--          </mat-radio-button>-->
+<!--        </mat-radio-group>-->
+<!--        <label for="role" id="role">Role</label>-->
         <input type="radio" class="form-control" name="role" [(ngModel)]="form.role" #role="ngModel" value="student"/> Student
         <input type="radio" class="form-control" name="role" [(ngModel)]="form.role" #role="ngModel" value="teacher"/> Teacher
         <div *ngIf="f.submitted && role.invalid">
@@ -15,18 +27,27 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="username" id="username">Username</label>
-        <input type="text" class="form-control" name="username" [(ngModel)]="form.username" #username="ngModel"
-               required />
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label for="username" id="username">Username</mat-label>
+          <input matInput placeholder="elon.musk" name="username" [(ngModel)]="form.username" #username="ngModel" required>
+        </mat-form-field>
+<!--        <label for="username" id="username">Username</label>-->
+<!--        <input type="text" class="form-control" name="username" [(ngModel)]="form.username" #username="ngModel"-->
+<!--               required />-->
         <div *ngIf="f.submitted && username.invalid">
           <div *ngIf="['username.errors?.required']">Username is required</div>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="password" id="password">Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"
-               required minlength="6" />
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label for="password" id="password">Password</mat-label>
+          <input matInput placeholder="********" type="password" name="password" [(ngModel)]="form.password" #password="ngModel" required minlength="6">
+        </mat-form-field>
+<!--        <label for="password" id="password">Password</label>-->
+<!--        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"-->
+<!--               required minlength="6" />-->
         <div *ngIf="f.submitted && password.invalid">
           <div *ngIf="['password.errors?.required']">Password is required</div>
           <div *ngIf="['password.errors?.minlength']">Password must be at least 6 characters</div>
@@ -38,7 +59,6 @@
           Signup failed!<br/>{{errorMessage}}
         </div>
       </div>
-    </form>
-  </div>
+    </form></mat-card>
   </div>
 </ng-template>
