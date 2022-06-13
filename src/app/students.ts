@@ -25,8 +25,8 @@ export  interface studentDetails {
 
 export interface subjectGradesForStudent {
   id?: number;
-  subject?: string;
+  subject: string;
   description?: string;
   grades?: minimalGrade[];
-  total?: string;
+  total: string;
 }

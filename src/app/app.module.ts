@@ -16,7 +16,7 @@ import { TeacherSubjectDetailsComponent } from './teacher-subject-details/teache
 import {MatTableModule} from "@angular/material/table";
 import {RouterModule, Routes} from "@angular/router";
 import {httpInterceptorProviders} from "./auth/auth-interceptor";
-import {UserComponent} from "./user/user.component";
+// import {UserComponent} from "./user/user.component";
 import {RoleGuard} from "./guards/role.guard";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
@@ -24,6 +24,7 @@ import { ErrorComponent } from './error/error.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {MatRadioModule} from "@angular/material/radio";
+import {MatSortModule} from "@angular/material/sort";
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import {MatRadioModule} from "@angular/material/radio";
     MatInputModule,
     MatCardModule,
     MatRadioModule,
+    MatSortModule,
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

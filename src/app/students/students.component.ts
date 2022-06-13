@@ -1,4 +1,4 @@
-import {Component, forwardRef, OnInit} from '@angular/core';
+import {AfterViewInit, Component, forwardRef, OnInit, ViewChild} from '@angular/core';
 import { StudentService } from '../student.service';
 import {Student, subjectGradesForStudent, subjectIdSet} from '../students';
 import {FormBuilder, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
@@ -7,6 +7,8 @@ import { IDropdownSettings, } from 'ng-multiselect-dropdown';
 import {TokenStorageService} from "../auth/token-storage.service";
 import {SubjectGrades} from "../subject";
 import {GradeForStudent} from "../grade";
+import {MatSort, Sort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
 
 
 @Component({
@@ -24,7 +26,8 @@ import {GradeForStudent} from "../grade";
 export class StudentsComponent implements OnInit {
   student: Student = {gradeList: [], subjectSet: new Set<subjectIdSet>()};
   selectedStudent? : Student;
-  subjectsGrades: subjectGradesForStudent[] = [];
+  // subjectsGrades: subjectGradesForStudent[] = [];
+  subjectsGrades: MatTableDataSource<subjectGradesForStudent>;
 
   studentId: string;
 
@@ -41,6 +44,10 @@ export class StudentsComponent implements OnInit {
   // form patch student infos
   formStudentInfo: any = {};
   patchInfosResponse?: String;
+
+  // sortedData: subjectGradesForStudent[] = [];
+
+
   constructor(private studentService: StudentService, private subjectService: SubjectService, private fb:FormBuilder, private token: TokenStorageService) {
     this.dropDownForm = fb.group({
       mySubjects: [this.selectedSubjects],
@@ -49,8 +56,8 @@ export class StudentsComponent implements OnInit {
       ToUnRegister: [this.currentSubjectsID],
     });
     this.studentId = token.getId();
+    this.subjectsGrades = new MatTableDataSource<subjectGradesForStudent>();
   }
-
 
 
 
@@ -106,7 +113,8 @@ export class StudentsComponent implements OnInit {
         id: subject.id,
         description: subject.description,
         subject: subject.name,
-        grades: []
+        grades: [],
+        total: "Not Graded"
       };
       let total: number = 0;
       grades.forEach(grade => {
@@ -125,17 +133,18 @@ export class StudentsComponent implements OnInit {
       totalNumberOfSubjets++;
       numberOfGrades = 0;
       total = 0;
-      this.subjectsGrades.push(subjectGrades);
-    })
-    this.subjectsGrades.push({
-      id: 0,
-      description: "",
-      subject: "TOTAL",
-      grades: [],
-      total: (sumTotal/totalNumberOfSubjets).toFixed(2)
-    });
+
+    // this.subjectsGrades.data.push({
+    //   id: 0,
+    //   description: subject.description,
+    //   subject: subject.name,
+    //   grades: [],
+    //   total: (sumTotal/totalNumberOfSubjets).toFixed(2)
+    // });
+      this.subjectsGrades.data.push(subjectGrades);
     console.log(this.subjectsGrades);
 
+    });
 
     // set displayGradesColumns
     for (let i = 1; i<=maxGrades; i++) {
@@ -155,6 +164,7 @@ export class StudentsComponent implements OnInit {
         this.getSubjects();
         this.currentSubjectsID = student.subjectSet;
         this.setSubjectsGrades();
+        // this.sortedData = this.subjectsGrades.data.slice();
       });
   }
 
@@ -246,4 +256,43 @@ export class StudentsComponent implements OnInit {
   }
 
 
+  sortData(sort: Sort) {
+    const data = this.subjectsGrades.data.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'total':
+          return this.compare(a.total, b.total, isAsc);
+        case 'subject':
+          return this.compare(a.subject, b.subject, isAsc);
+        // case 'fat':
+        //   return compare(a.fat, b.fat, isAsc);
+        // case 'carbs':
+        //   return compare(a.carbs, b.carbs, isAsc);
+        // case 'protein':
+        //   return compare(a.protein, b.protein, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+
+
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    // this.subjectsGrades.data = this.subjectsGrades.data.filter(subject => {
+    //   subject.subject.startsWith(filterValue);
+    // });
+    this.subjectsGrades.filter = filterValue.trim().toLowerCase();
+
+  }
 }

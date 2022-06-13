@@ -8,7 +8,12 @@
     MY MARKS
 
     <div *ngIf="student.gradeList.length != 0">
-      <table mat-table [dataSource]="subjectsGrades" class="mat-elevation-z8">
+      <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+      <table mat-table matSort [dataSource]="subjectsGrades" class="mat-elevation-z8" (matSortChange)="sortData($event)">
+<!--        <table mat-table [dataSource]="sortedData" class="mat-elevation-z8" >-->
 
 <!--        <ng-container matColumnDef="id">-->
 <!--          <th mat-header-cell *matHeaderCellDef> id </th>-->
@@ -37,7 +42,8 @@
         </ng-container>
 
         <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef> Total </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="total"> Total </th>
+<!--          <th mat-header-cell *matHeaderCellDef> Total </th>-->
           <td mat-cell *matCellDef="let element"> {{element.total}} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

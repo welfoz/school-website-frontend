@@ -14,13 +14,13 @@ export class RoleGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log("inside canActivate");
+    // console.log("inside canActivate");
 
     // check if any role from authorities list is in the routing list defined
     for (let i = 0; i < route.data['roles'].length; i++) {
       for (let j = 0; j < this.tokenStorageService.getAuthorities().length; j++) {
-        console.log("ROUTE");
-        console.log(route);
+        // console.log("ROUTE");
+        // console.log(route);
         if (route.data['roles'][i] === this.tokenStorageService.getAuthorities()[j]) {
           return true;
         }
