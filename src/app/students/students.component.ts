@@ -23,7 +23,7 @@ import {MatTableDataSource} from "@angular/material/table";
     }
   ]
 })
-export class StudentsComponent implements OnInit {
+export class StudentsComponent implements OnInit, AfterViewInit {
   student: Student = {gradeList: [], subjectSet: new Set<subjectIdSet>()};
   selectedStudent? : Student;
   // subjectsGrades: subjectGradesForStudent[] = [];
@@ -45,8 +45,9 @@ export class StudentsComponent implements OnInit {
   formStudentInfo: any = {};
   patchInfosResponse?: String;
 
-  // sortedData: subjectGradesForStudent[] = [];
+  sortedData: subjectGradesForStudent[] = [];
 
+  // @ViewChild(MatSort) sort: MatSort;
 
   constructor(private studentService: StudentService, private subjectService: SubjectService, private fb:FormBuilder, private token: TokenStorageService) {
     this.dropDownForm = fb.group({
@@ -57,9 +58,13 @@ export class StudentsComponent implements OnInit {
     });
     this.studentId = token.getId();
     this.subjectsGrades = new MatTableDataSource<subjectGradesForStudent>();
+      // this.subjectsGrades.sort = this.sort;
   }
 
 
+
+  ngAfterViewInit() {
+  }
 
   ngOnInit(): void {
     this.getById();
@@ -144,6 +149,7 @@ export class StudentsComponent implements OnInit {
       this.subjectsGrades.data.push(subjectGrades);
     console.log(this.subjectsGrades);
 
+    // this.subjectsGrades.sort = this.sort;
     });
 
     // set displayGradesColumns
@@ -256,31 +262,35 @@ export class StudentsComponent implements OnInit {
   }
 
 
-  // sortData(sort: Sort) {
-  //   const data = this.subjectsGrades.data.slice();
-  //   if (!sort.active || sort.direction === '') {
-  //     // this.sortedData = data;
-  //     return;
-  //   }
-  //
-  //   this.sortedData = data.sort((a, b) => {
-  //     const isAsc = sort.direction === 'asc';
-  //     switch (sort.active) {
-  //       case 'total':
-  //         return this.compare(a.total, b.total, isAsc);
-  //       case 'subject':
-  //         return this.compare(a.subject, b.subject, isAsc);
-  //       // case 'fat':
-  //       //   return compare(a.fat, b.fat, isAsc);
-  //       // case 'carbs':
-  //       //   return compare(a.carbs, b.carbs, isAsc);
-  //       // case 'protein':
-  //       //   return compare(a.protein, b.protein, isAsc);
-  //       default:
-  //         return 0;
-  //     }
-  //   });
-  // }
+  sortData(sort: Sort) {
+
+
+    // // this.subjectsGrades.sort;
+    const data = this.subjectsGrades.data.slice();
+    if (!sort.active || sort.direction === '') {
+      // this.sortedData = data;
+      return;
+    }
+
+    // this.subjectsGrades.sort = data.sort;
+    this.subjectsGrades.data = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'total':
+          return this.compare(a.total, b.total, isAsc);
+        case 'subject':
+          return this.compare(a.subject, b.subject, isAsc);
+        // case 'fat':
+        //   return compare(a.fat, b.fat, isAsc);
+        // case 'carbs':
+        //   return compare(a.carbs, b.carbs, isAsc);
+        // case 'protein':
+        //   return compare(a.protein, b.protein, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
 
 
   compare(a: number | string, b: number | string, isAsc: boolean) {
